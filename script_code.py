@@ -31,7 +31,7 @@ class Students:
 class Unite:
     """This class is for unite data from objects Rooms and Students """
 
-    def __init__(self, *, room: Rooms, student: Students):
+    def __init__(self, room: Rooms, student: Students):
         self.rooms_data = room.list_object
         self.students_data = student.list_object
 
