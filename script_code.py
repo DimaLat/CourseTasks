@@ -1,22 +1,50 @@
 import json
 import os
 
-with open('files/rooms.json') as f:
-    room_list = json.load(f)
-
-with open('files/students.json') as file:
-    student_list = json.load(file)
+rooms_location = "files/rooms.json"
+students_location = "files/students.json"
 
 
-relocation_list = []
+# format
 
-for student_dict in student_list:
-    for room_dict in room_list:
-        new_dict = {}
-        if student_dict['room'] == room_dict['id']:
-            new_dict["student_name"] = student_dict['name']
-            new_dict.update(room_dict)
-            relocation_list.append(new_dict)
 
-with open(os.path.join('.', 'files/students_relocation.json'), 'w') as f:
-        json.dump(relocation_list, f, indent=4)
+def parsing_reading(parsing_filename):
+    """This function is for parsing data from files"""
+    with open(os.path.join(parsing_filename), 'r') as file:
+        return json.load(file)
+
+
+class Rooms:
+    """This class is for list of parsing rooms"""
+
+    def __init__(self, file_location):
+        self.list_object = parsing_reading(file_location)
+
+
+class Students:
+    """This class is for list of parsing students"""
+
+    def __init__(self, file_location):
+        self.list_object = parsing_reading(file_location)
+
+
+class Unite:
+    """This class is for unite data from objects Rooms and Students """
+
+    def __init__(self, *, room: Rooms, student: Students):
+        self.rooms_data = room.list_object
+        self.students_data = student.list_object
+
+    def relocate(self):
+        relocation_list = self.rooms_data
+        for student in self.students_data:
+            if "students_name" in relocation_list[student["room"]]:
+                relocation_list[student["room"]]["students_name"] += [student["name"]]
+            else:
+                relocation_list[student["room"]]["students_name"] = [student["name"]]
+        return relocation_list
+
+
+rooms = Rooms(file_location=rooms_location)
+students = Students(file_location=students_location)
+print(Unite(student=students, room=rooms).relocate())
