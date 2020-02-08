@@ -31,7 +31,7 @@ class Students:
 class Unite:
     """This class is for unite data from objects Rooms and Students """
 
-    def __init__(self, *, room: Rooms, student: Students):
+    def __init__(self, room: Rooms, student: Students):
         self.rooms_data = room.list_object
         self.students_data = student.list_object
 
@@ -45,6 +45,16 @@ class Unite:
         return relocation_list
 
 
-rooms = Rooms(file_location=rooms_location)
-students = Students(file_location=students_location)
-print(Unite(student=students, room=rooms).relocate())
+def save_as_json(relocation_list):
+    with open(os.path.join('files/students_relocation.json'), 'w') as file:
+        json.dump(relocation_list, file, indent=4)
+
+
+def main():
+    rooms = Rooms(file_location=rooms_location)
+    students = Students(file_location=students_location)
+    students_relocation_list = Unite(student=students, room=rooms).relocate()
+    save_as_json(students_relocation_list)
+
+
+main()
