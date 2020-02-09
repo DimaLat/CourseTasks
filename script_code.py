@@ -1,5 +1,6 @@
 import json
 import os
+import dicttoxml
 
 rooms_location = "files/rooms.json"
 students_location = "files/students.json"
@@ -50,11 +51,19 @@ def save_as_json(relocation_list):
         json.dump(relocation_list, file, indent=4)
 
 
+def save_as_xml(relocation_list):
+    xml = dicttoxml.dicttoxml(relocation_list)
+    with open(os.path.join('files/students_relocation.xml'), 'w') as file:
+        file.write(str(xml))
+
+
 def main():
     rooms = Rooms(file_location=rooms_location)
     students = Students(file_location=students_location)
     students_relocation_list = Unite(student=students, room=rooms).relocate()
     save_as_json(students_relocation_list)
+    save_as_xml(students_relocation_list)
 
 
-main()
+if __name__ == '__main__':
+    main()
