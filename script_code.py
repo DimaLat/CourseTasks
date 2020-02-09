@@ -1,12 +1,11 @@
 import json
 import os
 import dicttoxml
+from xml.dom.minidom import parseString
 
 rooms_location = "files/rooms.json"
 students_location = "files/students.json"
-
-
-# format
+format = str(input("Enter choosing format(json/xml)"))
 
 
 def parsing_reading(parsing_filename):
@@ -53,16 +52,23 @@ def save_as_json(relocation_list):
 
 def save_as_xml(relocation_list):
     xml = dicttoxml.dicttoxml(relocation_list)
+    dom = parseString(xml)
     with open(os.path.join('files/students_relocation.xml'), 'w') as file:
-        file.write(str(xml))
+        file.write(str(dom.toprettyxml()))
+
+
+def format_choose(format, students_relocation_list):
+    if format == "json":
+        save_as_json(students_relocation_list)
+    elif format == "xml":
+        save_as_xml(students_relocation_list)
 
 
 def main():
     rooms = Rooms(file_location=rooms_location)
     students = Students(file_location=students_location)
     students_relocation_list = Unite(student=students, room=rooms).relocate()
-    save_as_json(students_relocation_list)
-    save_as_xml(students_relocation_list)
+    format_choose(format, students_relocation_list)
 
 
 if __name__ == '__main__':
