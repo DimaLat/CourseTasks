@@ -1,17 +1,9 @@
 Course Tasks:
 
-1st:
-Даны 2 файла (смотрите в прикрепленных файлах):
-- students.json
-- rooms.json
+1st task:
 
-Необходимо написать скрипт, целью которого будет загрузка этих двух файлов, объединения их в список комнат где каждая
-комната содержит список студентов которые
-находятся в этой комнате, а также последующую выгрузку их в формате JSON или XML.
+Script for parsing and uniting two json files and convert it to students_relocation.json/students_relocation.xml
 
-Необходима поддержка следующих входных параметров:
-- students # путь к файлу студентов
-- rooms # путь к файлу комнат
-- format # выходной формат (xml или json)
+To run this program firstly you need:
 
-Ожидается использование ООП и SOLID
+pip install dicttoxml

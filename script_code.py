@@ -5,13 +5,7 @@ from xml.dom.minidom import parseString
 
 rooms_location = "files/rooms.json"
 students_location = "files/students.json"
-format = str(input("Enter choosing format(json/xml)"))
-
-
-def parsing_reading(parsing_filename):
-    """This function is for parsing data from files"""
-    with open(os.path.join(parsing_filename), 'r') as file:
-        return json.load(file)
+format = str(input("Enter parsing format(json/xml)"))
 
 
 class Rooms:
@@ -45,12 +39,20 @@ class Unite:
         return relocation_list
 
 
+def parsing_reading(parsing_filename):
+    """This function is for parsing data from files"""
+    with open(os.path.join(parsing_filename), 'r') as file:
+        return json.load(file)
+
+
 def save_as_json(relocation_list):
+    """This function is for saving parsing data as json file"""
     with open(os.path.join('files/students_relocation.json'), 'w') as file:
         json.dump(relocation_list, file, indent=4)
 
 
 def save_as_xml(relocation_list):
+    """This function is for saving parsing data as xml file"""
     xml = dicttoxml.dicttoxml(relocation_list)
     dom = parseString(xml)
     with open(os.path.join('files/students_relocation.xml'), 'w') as file:
@@ -58,6 +60,7 @@ def save_as_xml(relocation_list):
 
 
 def format_choose(format, students_relocation_list):
+    """This function is for choosing in which format data will be parsed"""
     if format == "json":
         save_as_json(students_relocation_list)
     elif format == "xml":
