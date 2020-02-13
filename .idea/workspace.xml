@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c8f41357-0023-41b0-9014-52a8937a1e1a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task1/files/students_relocation.json" beforeDir="false" afterPath="$PROJECT_DIR$/Task1/files/students_relocation.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Task1/files/students_relocation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Task1/files/students_relocation.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Task1/script_code.py" beforeDir="false" afterPath="$PROJECT_DIR$/Task1/script_code.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,6 +39,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\PycharmProjects\CourseTask1\Task1" />
       <recent name="C:\Users\Admin\PycharmProjects\CourseTask1" />
       <recent name="C:\Users\Admin\PycharmProjects\CourseTask1\script" />
     </key>

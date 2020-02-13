@@ -5,7 +5,7 @@ from xml.dom.minidom import parseString
 
 rooms_location = "files/rooms.json"
 students_location = "files/students.json"
-format = str(input("Enter parsing format(json/xml)"))
+choosing_format = str(input("Enter parsing format(json/xml)"))
 
 
 class Rooms:
@@ -39,17 +39,6 @@ class Uniter:
         return relocation_list
 
 
-class JsonSaver:
-    def __init__(self, students_relocation_list):
-        self.save_as_json(students_relocation_list)
-
-    @staticmethod
-    def save_as_json(relocation_list):
-        """This function is for saving parsing data as json file"""
-        with open(os.path.join('files/students_relocation.json'), 'w') as file:
-            json.dump(relocation_list, file, indent=4)
-
-
 class XmlSaver:
     def __init__(self, students_relocation_list):
         self.save_as_xml(students_relocation_list)
@@ -63,16 +52,27 @@ class XmlSaver:
             file.write(str(dom.toprettyxml()))
 
 
-class Format_Chooser:
-    def __init__(self, format, students_relocation_list):
-        self.format_choose(format, students_relocation_list)
+class JsonSaver:
+    def __init__(self, students_relocation_list):
+        self.save_as_json(students_relocation_list)
 
     @staticmethod
-    def format_choose(format, students_relocation_list):
+    def save_as_json(relocation_list):
+        """This function is for saving parsing data as json file"""
+        with open(os.path.join('files/students_relocation.json'), 'w') as file:
+            json.dump(relocation_list, file, indent=4)
+
+
+class Format_Chooser:
+    def __init__(self, choosing_format, students_relocation_list):
+        self.format_choose(choosing_format, students_relocation_list)
+
+    @staticmethod
+    def format_choose(choosing_format, students_relocation_list):
         """This function is for choosing in which format data will be parsed"""
-        if format == "json":
+        if choosing_format == "json":
             JsonSaver(students_relocation_list)
-        elif format == "xml":
+        elif choosing_format == "xml":
             XmlSaver(students_relocation_list)
 
 
@@ -86,7 +86,7 @@ def main():
     rooms = Rooms(file_location=rooms_location)
     students = Students(file_location=students_location)
     students_relocation_list = Uniter(student=students, room=rooms).relocate()
-    Format_Chooser(format, students_relocation_list)
+    Format_Chooser(choosing_format, students_relocation_list)
 
 
 if __name__ == '__main__':
