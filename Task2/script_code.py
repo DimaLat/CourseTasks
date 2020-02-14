@@ -1,22 +1,28 @@
-import numpy
-
-
 class Version:
     def __init__(self, version: str):
         self.version = version
 
+    @staticmethod
+    def convert_to_one_format(version):
+        version = version.replace('-', '')
+        version = version.replace('alpha', 'a')
+        version = version.replace('beta', 'b')
+        standard_version = version
+        return standard_version
+
     def __eq__(self, other):
-        self.version = list(self.version)
-        other.version = list(other.version)
-        if numpy.all(self.version == other.version):
-            return True
-        elif numpy.all(self.version != other.version):
-            return False
+        return self.version == other.version
+
+    def __lt__(self, other):
+        self.version = str(self.version)
+        other.version = str(other.version)
 
 
 def main():
     to_test = [
         ('1.0.0', '2.0.0'),
+        ('1.0.1', '1.1.0'),
+        ('1.0.1', '1.0.1'),
         ('1.0.0', '1.42.0'),
         ('1.2.0', '1.2.42'),
         ('1.1.0-alpha', '1.2.0-alpha.1'),
@@ -28,6 +34,7 @@ def main():
         assert Version(version_1) < Version(version_2), 'le failed'
         assert Version(version_2) > Version(version_1), 'ge failed'
         assert Version(version_2) != Version(version_1), 'neq failed'
+
 
 if __name__ == "__main__":
     main()
