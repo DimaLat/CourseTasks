@@ -1,28 +1,31 @@
+from functools import total_ordering
+
+
+@total_ordering
 class Version:
     def __init__(self, version: str):
         self.version = version
 
-    @staticmethod
-    def convert_to_one_format(version):
+    def convert_to_one_format(self):
+        version = self.version
         version = version.replace('-', '')
         version = version.replace('alpha', 'a')
         version = version.replace('beta', 'b')
         standard_version = version
+        print(standard_version)
         return standard_version
 
     def __eq__(self, other):
-        return self.version == other.version
+        return self.convert_to_one_format() == other.convert_to_one_format()
 
     def __lt__(self, other):
-        self.version = str(self.version)
-        other.version = str(other.version)
+        return self.convert_to_one_format() < other.convert_to_one_format()
 
 
 def main():
     to_test = [
         ('1.0.0', '2.0.0'),
         ('1.0.1', '1.1.0'),
-        ('1.0.1', '1.0.1'),
         ('1.0.0', '1.42.0'),
         ('1.2.0', '1.2.42'),
         ('1.1.0-alpha', '1.2.0-alpha.1'),
