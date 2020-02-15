@@ -7,10 +7,13 @@ class Version:
         self.version = version
 
     def convert_to_one_format(self):
+        """method for converting versions to one format"""
+
         version = self.version
-        version = version.replace('-', '')
+        version = version.replace('-', '|')
         version = version.replace('alpha', 'a')
         version = version.replace('beta', 'b')
+        version = version.replace('1b', '1-b')
         standard_version = version
         print(standard_version)
         return standard_version
@@ -20,6 +23,24 @@ class Version:
 
     def __lt__(self, other):
         return self.convert_to_one_format() < other.convert_to_one_format()
+
+    def get_letter_part(self):
+        """method for taking letter part from version"""
+
+        if '|' in self.convert_to_one_format():
+            letter_part = self.convert_to_one_format().split('|')[1]
+        else:
+            letter_part = ''
+        return letter_part
+
+    def get_numeric_part(self):
+        """method for taking numeric part from version"""
+
+        if '|' in self.convert_to_one_format():
+            numeric_part = self.convert_to_one_format().split('|')[0]
+        else:
+            numeric_part = version
+        return numeric_part
 
 
 def main():
